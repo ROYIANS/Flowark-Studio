@@ -19,19 +19,16 @@ export const TasteImprintNotification: React.FC<TasteImprintNotificationProps> =
     if (!visible) return null;
 
     return (
-        <div className="fixed top-6 right-6 z-50 animate-in slide-in-from-top-2 fade-in duration-300">
-            <div className="bg-[#FDFCF8] border-2 border-[#E86435] px-6 py-4 flex items-center gap-3 shadow-lg">
+        <div className="fixed top-8 right-8 z-50 animate-in slide-in-from-top-2 fade-in duration-500">
+            <div className="bg-white px-6 py-4 flex items-center gap-4 border-l-2 border-[#E86435] shadow-sm">
                 <div className="relative">
-                    <Sparkles className="text-[#E86435]" size={24} />
-                    <div className="absolute -top-1 -right-1 bg-[#E86435] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center animate-in zoom-in duration-200">
-                        +{points}
-                    </div>
+                    <Sparkles className="text-[#E86435]" size={20} strokeWidth={1.5} />
                 </div>
                 <div>
-                    <div className="text-xs font-bold tracking-wider uppercase text-[#E86435] mb-1">
-                        品味印记 +{points}
+                    <div className="text-xs font-bold tracking-widest uppercase text-[#E86435] mb-1">
+                        Taste Imprint +{points}
                     </div>
-                    <div className="text-sm text-[#2D2A26]">{message}</div>
+                    <div className="text-sm text-[#2D2A26] font-light">{message}</div>
                 </div>
             </div>
         </div>
@@ -47,13 +44,15 @@ export const TasteImprintBadge: React.FC<TasteImprintBadgeProps> = ({ totalPoint
     return (
         <button
             onClick={onClick}
-            className="flex items-center gap-2 px-3 py-2 bg-[#F2E8E3] hover:bg-[#E86435] text-[#E86435] hover:text-white transition-all rounded-full group"
+            className="flex items-center gap-3 group"
         >
-            <Sparkles size={16} />
-            <span className="font-bold text-sm">{totalPoints}</span>
-            <span className="text-xs opacity-0 group-hover:opacity-100 transition-opacity max-w-0 group-hover:max-w-xs overflow-hidden whitespace-nowrap">
-                查看品味图谱
-            </span>
+            <div className="w-8 h-8 rounded-full bg-[#F2E8E3] flex items-center justify-center text-[#E86435] group-hover:bg-[#E86435] group-hover:text-white transition-colors">
+                <Sparkles size={14} strokeWidth={2} />
+            </div>
+            <div className="flex flex-col items-start">
+                <span className="text-xs text-[#8E8780] uppercase tracking-wider font-bold">Taste Points</span>
+                <span className="text-sm font-serif font-bold text-[#2D2A26]">{totalPoints}</span>
+            </div>
         </button>
     );
 };

@@ -9,50 +9,43 @@ interface AIPromptHelperProps {
 export const AIPromptHelper: React.FC<AIPromptHelperProps> = ({ onSelect, onDismiss }) => {
     return (
         <div className="animate-in slide-in-from-bottom-2 fade-in duration-300">
-            <div className="bg-[#FDFCF8] border-2 border-[#EBE5E0] p-5 max-w-sm">
-                <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                        <Lightbulb className="text-[#E86435]" size={18} />
-                        <span className="text-sm font-medium text-[#2D2A26]">
-                            我注意到你停下来了，需要帮忙吗?
+            <div className="bg-white shadow-xl border border-[#EBE5E0] p-6 max-w-sm rounded-none">
+                <div className="flex items-start justify-between mb-6">
+                    <div className="flex items-center gap-3">
+                        <Lightbulb className="text-[#E86435]" size={20} strokeWidth={1.5} />
+                        <span className="text-base font-medium text-[#2D2A26] font-serif">
+                            需要一点灵感吗?
                         </span>
                     </div>
                     <button
                         onClick={onDismiss}
                         className="text-[#8E8780] hover:text-[#2D2A26]"
                     >
-                        <X size={16} />
+                        <X size={18} strokeWidth={1.5} />
                     </button>
                 </div>
 
-                <div className="text-sm text-[#2D2A26] mb-3">接下来你想:</div>
-
-                <div className="space-y-2">
+                <div className="space-y-1">
                     {[
                         { value: 'example', label: '补充一个具体例子' },
                         { value: 'transition', label: '过渡到下一个观点' },
                         { value: 'summary', label: '总结一下前面说的' },
                         { value: 'none', label: '我自己想，不用帮忙', special: true }
                     ].map(option => (
-                        <label
+                        <div
                             key={option.value}
-                            className={`flex items-center gap-3 p-3 border border-[#EBE5E0] cursor-pointer transition-all hover:border-[#E86435] hover:bg-[#F2E8E3]/30
-                                ${option.special ? 'border-dashed' : ''}`}
+                            className={`flex items-center gap-3 p-3 cursor-pointer transition-all hover:bg-[#F2E8E3] group
+                                ${option.special ? 'text-[#8E8780] hover:text-[#2D2A26] mt-2 border-t border-[#EBE5E0]' : 'text-[#2D2A26]'}`}
                             onClick={() => {
                                 onSelect(option.value);
                                 if (option.value === 'none') onDismiss();
                             }}
                         >
-                            <input
-                                type="radio"
-                                name="prompt-type"
-                                value={option.value}
-                                className="accent-[#E86435]"
-                            />
-                            <span className={`text-sm ${option.special ? 'text-[#8E8780]' : 'text-[#2D2A26]'}`}>
+                            {!option.special && <div className="w-1.5 h-1.5 rounded-full bg-[#EBE5E0] group-hover:bg-[#E86435] transition-colors" />}
+                            <span className="text-sm">
                                 {option.label}
                             </span>
-                        </label>
+                        </div>
                     ))}
                 </div>
             </div>
@@ -93,38 +86,40 @@ export const PromptFillBlank: React.FC<PromptFillBlankProps> = ({ type, onComple
     };
 
     return (
-        <div className="animate-in slide-in-from-bottom-2 fade-in duration-300">
-            <div className="bg-[#F2E8E3] border-l-4 border-[#E86435] p-5 mb-4">
-                <div className="text-xs font-bold tracking-wider uppercase text-[#E86435] mb-3">
-                    AI 提示句
+        <div className="animate-in slide-in-from-bottom-2 fade-in duration-300 my-8">
+            <div className="pl-6 border-l border-[#E86435]">
+                <div className="text-xs font-bold tracking-widest uppercase text-[#E86435] mb-4">
+                    AI Suggestion
                 </div>
-                <div className="text-[#2D2A26] text-lg leading-relaxed font-light mb-4">
+                <div className="text-[#2D2A26] text-xl leading-loose font-serif italic mb-6">
                     {template.split(/___\([^)]+\)/).map((part, index) => (
                         <React.Fragment key={`part-${index}`}>
                             {part}
                             {index < blankMatches.length && (
-                                <input
-                                    type="text"
-                                    placeholder={blankMatches[index][1]}
-                                    value={blanks[blankMatches[index][1]] || ''}
-                                    onChange={(e) => handleBlankChange(blankMatches[index][1], e.target.value)}
-                                    className="inline-block mx-1 px-2 py-1 bg-white border-b-2 border-[#E86435] outline-none min-w-[120px] focus:bg-[#FDFCF8]"
-                                    autoFocus={index === 0}
-                                />
+                                <span className="relative inline-block mx-1">
+                                    <input
+                                        type="text"
+                                        placeholder={blankMatches[index][1]}
+                                        value={blanks[blankMatches[index][1]] || ''}
+                                        onChange={(e) => handleBlankChange(blankMatches[index][1], e.target.value)}
+                                        className="inline-block px-1 bg-transparent border-b border-[#8E8780] outline-none min-w-[100px] text-[#E86435] placeholder-[#EBE5E0] focus:border-[#E86435] transition-colors text-center"
+                                        autoFocus={index === 0}
+                                    />
+                                </span>
                             )}
                         </React.Fragment>
                     ))}
                 </div>
-                <div className="flex gap-3">
+                <div className="flex gap-6">
                     <button
                         onClick={handleComplete}
-                        className="px-4 py-2 bg-[#E86435] text-white text-sm font-medium hover:bg-[#2D2A26] transition-colors"
+                        className="text-[#E86435] text-sm font-bold hover:text-[#2D2A26] transition-colors uppercase tracking-wider"
                     >
-                        插入到编辑器
+                        插入内容
                     </button>
                     <button
                         onClick={onCancel}
-                        className="px-4 py-2 text-[#8E8780] text-sm hover:text-[#2D2A26] transition-colors"
+                        className="text-[#8E8780] text-sm hover:text-[#2D2A26] transition-colors"
                     >
                         取消
                     </button>

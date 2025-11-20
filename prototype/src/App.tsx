@@ -66,6 +66,7 @@ const App = () => {
                 <Editor
                     type={editorType}
                     onBack={() => setView('dashboard')}
+                    onViewReport={() => setView('report')}
                 />
             )}
 

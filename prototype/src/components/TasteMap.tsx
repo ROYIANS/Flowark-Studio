@@ -59,12 +59,12 @@ export const TasteMap: React.FC<TasteMapProps> = ({ onBack }) => {
                     </p>
                 </div>
 
-                {/* 品味图谱 - 雷达图风格 */}
-                <div className="mb-16 p-12 border border-[#EBE5E0] animate-in slide-in-from-bottom-4 duration-500">
+                {/* 品味图谱 - 雷达图风格 - 去框化 */}
+                <div className="mb-24 animate-in slide-in-from-bottom-4 duration-500">
                     <div className="relative aspect-square max-w-md mx-auto">
                         {/* 中心圆 */}
                         <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-4 h-4 rounded-full bg-[#E86435]"></div>
+                            <div className="w-2 h-2 rounded-full bg-[#E86435]"></div>
                         </div>
 
                         {/* 维度线 */}
@@ -76,13 +76,13 @@ export const TasteMap: React.FC<TasteMapProps> = ({ onBack }) => {
 
                             return (
                                 <div key={dimension.name}>
-                                    {/* 引导线 */}
+                                    {/* 引导线 - 更淡 */}
                                     <div
                                         className="absolute top-1/2 left-1/2 origin-left"
                                         style={{
                                             width: '45%',
                                             height: '1px',
-                                            backgroundColor: '#EBE5E0',
+                                            backgroundColor: '#F2E8E3',
                                             transform: `rotate(${angle}deg)`
                                         }}
                                     />
@@ -94,7 +94,7 @@ export const TasteMap: React.FC<TasteMapProps> = ({ onBack }) => {
                                             transform: `translate(${Math.cos(radians) * distance}%, ${Math.sin(radians) * distance}%) translate(-50%, -50%)`
                                         }}
                                     >
-                                        <div className="w-3 h-3 rounded-full bg-[#E86435] shadow-lg"></div>
+                                        <div className="w-3 h-3 rounded-full bg-[#E86435]"></div>
                                     </div>
 
                                     {/* 标签 */}
@@ -104,11 +104,11 @@ export const TasteMap: React.FC<TasteMapProps> = ({ onBack }) => {
                                             transform: `translate(${Math.cos(radians) * 55}%, ${Math.sin(radians) * 55}%) translate(-50%, -50%)`
                                         }}
                                     >
-                                        <div className="text-sm font-medium text-[#2D2A26] mb-1 whitespace-nowrap">
+                                        <div className="text-sm font-medium text-[#2D2A26] mb-1 whitespace-nowrap font-serif">
                                             {dimension.name}
                                         </div>
-                                        <div className="text-xs text-[#E86435] font-bold">
-                                            {dimension.value}/{dimension.maxValue}
+                                        <div className="text-xs text-[#8E8780]">
+                                            {dimension.value}
                                         </div>
                                     </div>
                                 </div>
@@ -145,20 +145,20 @@ export const TasteMap: React.FC<TasteMapProps> = ({ onBack }) => {
                     </div>
                 </div>
 
-                {/* 成就系统 */}
+                {/* 成就系统 - 去框化 */}
                 <div className="animate-in slide-in-from-bottom-4 duration-900">
-                    <h2 className="text-2xl font-serif text-[#2D2A26] mb-6 flex items-center gap-3">
-                        <Award className="text-[#E86435]" size={28} />
+                    <h2 className="text-2xl font-serif text-[#2D2A26] mb-8 flex items-center gap-3">
+                        <Award className="text-[#E86435]" size={24} strokeWidth={1.5} />
                         解锁的成就
                     </h2>
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid md:grid-cols-2 gap-12">
                         {achievements.map((achievement) => (
                             <div
                                 key={achievement.id}
-                                className="border border-[#EBE5E0] p-6 hover:border-[#E86435] transition-colors group"
+                                className="group"
                             >
-                                <div className="text-4xl mb-3">{achievement.icon}</div>
-                                <h3 className="font-bold text-[#2D2A26] mb-2 group-hover:text-[#E86435] transition-colors">
+                                <div className="text-4xl mb-4 opacity-80 group-hover:scale-110 transition-transform duration-300 origin-left">{achievement.icon}</div>
+                                <h3 className="font-bold text-[#2D2A26] mb-2 group-hover:text-[#E86435] transition-colors text-lg">
                                     {achievement.name}
                                 </h3>
                                 <p className="text-sm text-[#8E8780] font-light leading-relaxed">
@@ -168,11 +168,11 @@ export const TasteMap: React.FC<TasteMapProps> = ({ onBack }) => {
                         ))}
                     </div>
 
-                    <div className="mt-8 p-6 bg-[#F2E8E3] flex items-start gap-4">
-                        <Sparkles className="text-[#E86435] shrink-0 mt-1" size={20} />
+                    <div className="mt-16 pt-8 border-t border-[#EBE5E0] flex items-start gap-4">
+                        <Sparkles className="text-[#E86435] shrink-0 mt-1" size={20} strokeWidth={1.5} />
                         <div>
-                            <h4 className="font-bold text-[#E86435] mb-1">继续成长</h4>
-                            <p className="text-[#2D2A26] text-sm font-light leading-relaxed">
+                            <h4 className="font-bold text-[#E86435] mb-2">继续成长</h4>
+                            <p className="text-[#2D2A26] text-base font-light leading-relaxed">
                                 你的"结构化"维度还有很大提升空间。尝试在下次创作中使用"总分总"结构，会让内容更有条理。
                             </p>
                         </div>

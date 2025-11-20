@@ -8,9 +8,10 @@ import { TasteImprintNotification } from './TasteImprintNotification';
 interface EditorProps {
     type: string;
     onBack: () => void;
+    onViewReport?: () => void;
 }
 
-export const Editor: React.FC<EditorProps> = ({ type, onBack }) => {
+export const Editor: React.FC<EditorProps> = ({ type, onBack, onViewReport }) => {
     const [showIntentCapture, setShowIntentCapture] = useState(true);
     const [intent, setIntent] = useState<IntentData | null>(null);
     const [isGenerating, setIsGenerating] = useState(false);
@@ -128,7 +129,13 @@ export const Editor: React.FC<EditorProps> = ({ type, onBack }) => {
 
                         <div className="flex gap-3">
                             <button
-                                onClick={onBack}
+                                onClick={() => {
+                                    if (onViewReport) {
+                                        onViewReport();
+                                    } else {
+                                        onBack();
+                                    }
+                                }}
                                 className="flex-1 px-4 py-3 bg-[#E86435] text-white font-medium hover:bg-[#2D2A26] transition-colors"
                             >
                                 记录完成 +3 品味印记

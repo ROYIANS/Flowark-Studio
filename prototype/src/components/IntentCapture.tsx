@@ -26,28 +26,28 @@ export const IntentCapture: React.FC<IntentCaptureProps> = ({ onComplete, onSkip
     };
 
     return (
-        <div className="fixed inset-0 bg-[#2D2A26]/40 backdrop-blur-sm flex items-center justify-center z-50 animate-in fade-in duration-300">
-            <div className="bg-[#FDFCF8] w-full max-w-lg mx-4 p-8 rounded-none animate-in slide-in-from-bottom-4 duration-500">
+        <div className="fixed inset-0 bg-[#FDFCF8]/90 backdrop-blur-sm flex items-center justify-center z-50 animate-in fade-in duration-300">
+            <div className="bg-[#FDFCF8] w-full max-w-lg mx-4 p-12 shadow-2xl border border-[#EBE5E0] animate-in slide-in-from-bottom-4 duration-500">
                 {/* 标题区 */}
-                <div className="flex items-start justify-between mb-6">
+                <div className="flex items-start justify-between mb-12">
                     <div>
-                        <div className="text-xs font-bold tracking-widest uppercase text-[#E86435] mb-2">花 3 秒</div>
-                        <h3 className="text-2xl font-serif text-[#2D2A26]">说说你的想法 👇</h3>
+                        <div className="text-xs font-bold tracking-widest uppercase text-[#E86435] mb-2">Before we start</div>
+                        <h3 className="text-3xl font-serif text-[#2D2A26]">花 3 秒，说说你的想法</h3>
                     </div>
                     <button
                         onClick={onSkip}
                         className="text-[#8E8780] hover:text-[#2D2A26] transition-colors"
                     >
-                        <X size={20} />
+                        <X size={24} strokeWidth={1.5} />
                     </button>
                 </div>
 
                 {/* 问题1：创作类型 */}
-                <div className="mb-8">
-                    <label className="text-sm text-[#2D2A26] font-medium mb-3 block">
-                        我想写/拍: <span className="text-[#8E8780] text-xs">(选一个)</span>
+                <div className="mb-12">
+                    <label className="text-lg text-[#2D2A26] font-medium mb-6 block">
+                        我想写/拍...
                     </label>
-                    <div className="space-y-2">
+                    <div className="space-y-4">
                         {[
                             { value: 'experience', label: '我自己的真实经历' },
                             { value: 'observation', label: '我观察到的现象' },
@@ -56,29 +56,33 @@ export const IntentCapture: React.FC<IntentCaptureProps> = ({ onComplete, onSkip
                         ].map(option => (
                             <label
                                 key={option.value}
-                                className={`flex items-center gap-3 p-3 border border-[#EBE5E0] cursor-pointer transition-all hover:border-[#E86435]
-                                    ${selectedType === option.value ? 'border-[#E86435] bg-[#F2E8E3]' : ''}`}
+                                className={`flex items-center gap-4 p-4 cursor-pointer transition-all group
+                                    ${selectedType === option.value ? 'bg-[#F2E8E3]' : 'hover:bg-[#F2E8E3]/30'}`}
                             >
+                                <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-colors
+                                    ${selectedType === option.value ? 'border-[#E86435]' : 'border-[#EBE5E0] group-hover:border-[#E86435]'}`}>
+                                    {selectedType === option.value && <div className="w-2 h-2 rounded-full bg-[#E86435]" />}
+                                </div>
                                 <input
                                     type="radio"
                                     name="type"
                                     value={option.value}
                                     checked={selectedType === option.value}
                                     onChange={(e) => setSelectedType(e.target.value)}
-                                    className="accent-[#E86435]"
+                                    className="hidden"
                                 />
-                                <span className="text-[#2D2A26]">{option.label}</span>
+                                <span className={`text-lg ${selectedType === option.value ? 'text-[#E86435]' : 'text-[#2D2A26]'}`}>{option.label}</span>
                             </label>
                         ))}
                     </div>
                 </div>
 
                 {/* 问题2：开头方式（可选） */}
-                <div className="mb-8">
-                    <label className="text-sm text-[#2D2A26] font-medium mb-3 block">
-                        这次我想试试: <span className="text-[#8E8780] text-xs">(选一个或跳过)</span>
+                <div className="mb-12">
+                    <label className="text-lg text-[#2D2A26] font-medium mb-6 block">
+                        这次我想试试... <span className="text-[#8E8780] text-sm font-normal">(可选)</span>
                     </label>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-3">
                         {[
                             { value: 'story', label: '用故事开头' },
                             { value: 'data', label: '用数据开头' },
@@ -87,10 +91,10 @@ export const IntentCapture: React.FC<IntentCaptureProps> = ({ onComplete, onSkip
                             <button
                                 key={option.value}
                                 onClick={() => setSelectedApproach(option.value === selectedApproach ? '' : option.value)}
-                                className={`px-4 py-2 border border-[#EBE5E0] text-sm transition-all
+                                className={`px-6 py-3 text-base transition-all rounded-full
                                     ${selectedApproach === option.value
-                                        ? 'border-[#E86435] bg-[#F2E8E3] text-[#E86435]'
-                                        : 'text-[#8E8780] hover:border-[#8E8780]'
+                                        ? 'bg-[#2D2A26] text-white'
+                                        : 'bg-white border border-[#EBE5E0] text-[#8E8780] hover:border-[#E86435] hover:text-[#E86435]'
                                     }`}
                             >
                                 {option.label}
@@ -100,10 +104,10 @@ export const IntentCapture: React.FC<IntentCaptureProps> = ({ onComplete, onSkip
                 </div>
 
                 {/* 底部按钮 */}
-                <div className="flex items-center justify-between pt-6 border-t border-[#EBE5E0]">
+                <div className="flex items-center justify-between pt-8 border-t border-[#EBE5E0]">
                     <button
                         onClick={onSkip}
-                        className="text-[#8E8780] hover:text-[#2D2A26] transition-colors text-sm"
+                        className="text-[#8E8780] hover:text-[#2D2A26] transition-colors text-sm underline decoration-1 underline-offset-4"
                     >
                         跳过
                     </button>
@@ -111,8 +115,9 @@ export const IntentCapture: React.FC<IntentCaptureProps> = ({ onComplete, onSkip
                         variant="primary"
                         onClick={handleContinue}
                         disabled={!selectedType}
+                        className="px-8"
                     >
-                        3秒说完了，开始创作
+                        开始创作
                     </Button>
                 </div>
             </div>

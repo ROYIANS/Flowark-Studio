@@ -81,7 +81,7 @@ interface DashboardProps {
     onViewReport?: () => void;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ persona, onBack, onCreate, onGoHub, onViewTasteMap }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ persona, onBack, onCreate, onGoHub, onViewTasteMap, onViewReport }) => {
     const [tab, setTab] = useState<'inspiration' | 'analysis'>('inspiration');
     const [likedInspirations, setLikedInspirations] = useState<number[]>([]);
     const [interestedInspirations, setInterestedInspirations] = useState<number[]>([]);
@@ -165,6 +165,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ persona, onBack, onCreate,
                     >
                         数据分析
                         {tab === 'analysis' && <ArrowRight size={14}/>}
+                    </div>
+
+                    <div
+                        onClick={() => onViewReport && onViewReport()}
+                        className="pl-4 border-l-2 border-transparent py-2 text-[#8E8780] hover:text-[#2D2A26] cursor-pointer transition-colors group flex items-center justify-between"
+                    >
+                        品味报告
+                        <ArrowRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity text-[#E86435]"/>
                     </div>
                 </nav>
 
