@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Plus } from 'lucide-react';
 import { HoverRow } from './ui/HoverRow';
 import { Avatar } from './ui/Avatar';
+import { useApp } from '../contexts/AppContext';
 
 export interface Persona {
     id: number;
@@ -10,13 +12,18 @@ export interface Persona {
     stats: string;
 }
 
-interface PersonaArchivesProps {
-    personas: Persona[];
-    onSelect: (persona: Persona) => void;
-    onCreate: () => void;
-}
+export const PersonaArchives: React.FC = () => {
+    const navigate = useNavigate();
+    const { personas, setSelectedPersona } = useApp();
 
-export const PersonaArchives: React.FC<PersonaArchivesProps> = ({ personas, onSelect, onCreate }) => {
+    const handleSelect = (persona: Persona) => {
+        setSelectedPersona(persona);
+        navigate(`/personas/${persona.id}/dashboard`);
+    };
+
+    const handleCreate = () => {
+        navigate('/personas/create');
+    };
     return (
         <div className="min-h-screen bg-[#FDFCF8] flex flex-col items-center pt-32 px-6">
             <div className="max-w-2xl w-full">
@@ -27,7 +34,7 @@ export const PersonaArchives: React.FC<PersonaArchivesProps> = ({ personas, onSe
 
                 <div className="space-y-0 border-t border-[#EBE5E0]">
                     {personas.map(persona => (
-                        <HoverRow key={persona.id} onClick={() => onSelect(persona)} className="py-6 flex items-center justify-between">
+                        <HoverRow key={persona.id} onClick={() => handleSelect(persona)} className="py-6 flex items-center justify-between">
                             <div className="flex items-center gap-6">
                                 <Avatar name={persona.name} size="md" />
                                 <div>
@@ -42,7 +49,7 @@ export const PersonaArchives: React.FC<PersonaArchivesProps> = ({ personas, onSe
                         </HoverRow>
                     ))}
 
-                    <HoverRow onClick={onCreate} className="py-6 flex items-center gap-6 text-[#8E8780] hover:text-[#E86435]">
+                    <HoverRow onClick={handleCreate} className="py-6 flex items-center gap-6 text-[#8E8780] hover:text-[#E86435]">
                         <div className="w-12 h-12 rounded-full border border-dashed border-[#8E8780] flex items-center justify-center group-hover:border-[#E86435] transition-colors">
                             <Plus size={20} />
                         </div>

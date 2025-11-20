@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Download, RefreshCcw, Wand2, PenTool, Smile, Meh, Sparkles, Lightbulb } from 'lucide-react';
 import { Button } from './ui/Button';
 import { IntentCapture, IntentData } from './IntentCapture';
 import { AIPromptHelper, PromptFillBlank } from './AIPromptHelper';
 import { TasteImprintNotification } from './TasteImprintNotification';
+import { useApp } from '../contexts/AppContext';
 
-interface EditorProps {
-    type: string;
-    onBack: () => void;
-    onViewReport?: () => void;
-}
+export const Editor: React.FC = () => {
+    const navigate = useNavigate();
+    const { personaId } = useParams<{ personaId: string }>();
+    const { editorType } = useApp();
 
-export const Editor: React.FC<EditorProps> = ({ type, onBack, onViewReport }) => {
+    const handleBack = () => navigate(`/personas/${personaId}/dashboard`);
+    const handleViewReport = () => navigate(`/personas/${personaId}/report`);
     const [showIntentCapture, setShowIntentCapture] = useState(true);
     const [intent, setIntent] = useState<IntentData | null>(null);
     const [isGenerating, setIsGenerating] = useState(false);
@@ -82,7 +84,7 @@ export const Editor: React.FC<EditorProps> = ({ type, onBack, onViewReport }) =>
             <div className="min-h-screen bg-[#FDFCF8] flex flex-col items-center justify-center">
                 <div className="w-16 h-16 border-4 border-[#F2E8E3] border-t-[#E86435] rounded-full animate-spin mb-8"></div>
                 <h2 className="text-2xl font-serif text-[#2D2A26] mb-2">正在构思...</h2>
-                <p className="text-[#8E8780]">AI 正在为您的 {type === 'text' ? '图文' : '视频'} 注入灵感</p>
+                <p className="text-[#8E8780]">AI 正在为您的 {editorType === 'text' ? '图文' : '视频'} 注入灵感</p>
             </div>
         );
     }
@@ -129,19 +131,13 @@ export const Editor: React.FC<EditorProps> = ({ type, onBack, onViewReport }) =>
 
                         <div className="flex gap-3">
                             <button
-                                onClick={() => {
-                                    if (onViewReport) {
-                                        onViewReport();
-                                    } else {
-                                        onBack();
-                                    }
-                                }}
+                                onClick={handleViewReport}
                                 className="flex-1 px-4 py-3 bg-[#E86435] text-white font-medium hover:bg-[#2D2A26] transition-colors"
                             >
                                 记录完成 +3 品味印记
                             </button>
                             <button
-                                onClick={onBack}
+                                onClick={handleBack}
                                 className="px-4 py-3 text-[#8E8780] hover:text-[#2D2A26] transition-colors"
                             >
                                 暂时不想说
@@ -162,7 +158,7 @@ export const Editor: React.FC<EditorProps> = ({ type, onBack, onViewReport }) =>
 
             {/* 顶部工具栏 */}
             <div className="h-16 px-6 flex items-center justify-between border-b border-[#EBE5E0] bg-[#FDFCF8]/90 backdrop-blur sticky top-0 z-10">
-                <button onClick={onBack} className="flex items-center gap-2 text-[#8E8780] hover:text-[#2D2A26]">
+                <button onClick={handleBack} className="flex items-center gap-2 text-[#8E8780] hover:text-[#2D2A26]">
                     <ArrowLeft size={18}/>
                     <span className="hidden md:inline">返回</span>
                 </button>
@@ -178,7 +174,7 @@ export const Editor: React.FC<EditorProps> = ({ type, onBack, onViewReport }) =>
             <div className="flex-1 flex">
                 {/* 主编辑区 */}
                 <main className="flex-1 p-8 md:p-16 max-w-4xl mx-auto overflow-y-auto w-full">
-                    {type === 'text' ? (
+                    {editorType === 'text' ? (
                         <div className="space-y-8">
                             {/* 意图回显（如果有） - 极简风格 */}
                             {intent && (

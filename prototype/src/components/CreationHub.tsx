@@ -1,19 +1,25 @@
 import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, PenTool, ArrowRight, Film, Crown } from 'lucide-react';
 import { Button } from './ui/Button';
 import { HoverRow } from './ui/HoverRow';
+import { useApp } from '../contexts/AppContext';
 
-interface CreationHubProps {
-    onBack: () => void;
-    onCreate: (type: string) => void;
-}
+export const CreationHub: React.FC = () => {
+    const navigate = useNavigate();
+    const { personaId } = useParams<{ personaId: string }>();
+    const { setEditorType } = useApp();
 
-export const CreationHub: React.FC<CreationHubProps> = ({ onBack, onCreate }) => {
+    const handleBack = () => navigate(`/personas/${personaId}/dashboard`);
+    const handleCreate = (type: string) => {
+        setEditorType(type);
+        navigate(`/personas/${personaId}/editor`);
+    };
     return (
         <div className="min-h-screen bg-[#FDFCF8] p-6 md:p-12 pt-32 flex justify-center">
             <div className="w-full max-w-3xl">
                 <div className="flex items-center justify-between mb-16">
-                    <button onClick={onBack} className="flex items-center gap-2 text-[#8E8780] hover:text-[#2D2A26]">
+                    <button onClick={handleBack} className="flex items-center gap-2 text-[#8E8780] hover:text-[#2D2A26]">
                         <ArrowLeft size={20}/> 返回
                     </button>
                     <span className="text-sm font-bold tracking-widest uppercase text-[#E86435]">创作中心</span>
@@ -24,7 +30,7 @@ export const CreationHub: React.FC<CreationHubProps> = ({ onBack, onCreate }) =>
                 <div className="border-t border-[#EBE5E0]">
                     {/* 图文选项 */}
                     <HoverRow
-                        onClick={() => onCreate('text')}
+                        onClick={() => handleCreate('text')}
                         className="py-10 flex items-center justify-between"
                     >
                         <div className="flex items-start gap-6">
@@ -43,7 +49,7 @@ export const CreationHub: React.FC<CreationHubProps> = ({ onBack, onCreate }) =>
 
                     {/* 视频选项 */}
                     <HoverRow
-                        onClick={() => onCreate('video')}
+                        onClick={() => handleCreate('video')}
                         className="py-10 flex items-center justify-between"
                     >
                         <div className="flex items-start gap-6">

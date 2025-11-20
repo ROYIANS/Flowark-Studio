@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { TrendingUp, Eye, MessageCircle, Sparkles, RefreshCcw, Zap, Wand2, ArrowRight, Plus, Crown, Heart, Lightbulb } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Avatar } from './ui/Avatar';
 import { HoverRow } from './ui/HoverRow';
-import { Persona } from './PersonaArchives';
+import { useApp } from '../contexts/AppContext';
 import { TasteImprintNotification, TasteImprintBadge } from './TasteImprintNotification';
 
 const INSPIRATIONS = [
@@ -72,16 +73,24 @@ const DataAnalysisView = () => (
     </div>
 );
 
-interface DashboardProps {
-    persona: Persona;
-    onBack: () => void;
-    onCreate: (type: string) => void;
-    onGoHub: () => void;
-    onViewTasteMap?: () => void;
-    onViewReport?: () => void;
-}
+export const Dashboard: React.FC = () => {
+    const navigate = useNavigate();
+    const { personaId } = useParams<{ personaId: string }>();
+    const { selectedPersona, setEditorType } = useApp();
 
-export const Dashboard: React.FC<DashboardProps> = ({ persona, onBack, onCreate, onGoHub, onViewTasteMap, onViewReport }) => {
+    if (!selectedPersona || selectedPersona.id.toString() !== personaId) {
+        navigate('/personas');
+        return null;
+    }
+
+    const handleBack = () => navigate('/personas');
+    const handleCreate = (type: string) => {
+        setEditorType(type);
+        navigate(`/personas/${personaId}/editor`);
+    };
+    const handleGoHub = () => navigate(`/personas/${personaId}/hub`);
+    const handleViewTasteMap = () => navigate(`/personas/${personaId}/taste-map`);
+    const handleViewReport = () => navigate(`/personas/${personaId}/report`);
     const [tab, setTab] = useState<'inspiration' | 'analysis'>('inspiration');
     const [likedInspirations, setLikedInspirations] = useState<number[]>([]);
     const [interestedInspirations, setInterestedInspirations] = useState<number[]>([]);
@@ -130,16 +139,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ persona, onBack, onCreate,
 
             {/* 左侧导航 */}
             <aside className="w-64 hidden md:flex flex-col p-8 border-r border-[#EBE5E0] sticky top-0 h-screen">
-                <div onClick={onBack} className="cursor-pointer flex items-center gap-3 mb-12 group">
-                    <Avatar name={persona.name} size="sm" />
-                    <span className="font-medium text-[#2D2A26] group-hover:text-[#E86435] transition-colors">{persona.name}</span>
+                <div onClick={handleBack} className="cursor-pointer flex items-center gap-3 mb-12 group">
+                    <Avatar name={selectedPersona.name} size="sm" />
+                    <span className="font-medium text-[#2D2A26] group-hover:text-[#E86435] transition-colors">{selectedPersona.name}</span>
                 </div>
 
                 {/* 品味印记徽章 */}
                 <div className="mb-8">
                     <TasteImprintBadge
                         totalPoints={totalImprints}
-                        onClick={() => onViewTasteMap && onViewTasteMap()}
+                        onClick={handleViewTasteMap}
                     />
                 </div>
 
@@ -153,7 +162,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ persona, onBack, onCreate,
                         {tab === 'inspiration' && <ArrowRight size={14}/>}
                     </div>
 
-                    <div onClick={onGoHub} className="pl-4 border-l-2 border-transparent py-2 text-[#8E8780] hover:text-[#2D2A26] cursor-pointer transition-colors group flex items-center justify-between">
+                    <div onClick={handleGoHub} className="pl-4 border-l-2 border-transparent py-2 text-[#8E8780] hover:text-[#2D2A26] cursor-pointer transition-colors group flex items-center justify-between">
                         创作空间
                         <Plus size={14} className="opacity-0 group-hover:opacity-100 transition-opacity text-[#E86435]"/>
                     </div>
@@ -168,7 +177,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ persona, onBack, onCreate,
                     </div>
 
                     <div
-                        onClick={() => onViewReport && onViewReport()}
+                        onClick={handleViewReport}
                         className="pl-4 border-l-2 border-transparent py-2 text-[#8E8780] hover:text-[#2D2A26] cursor-pointer transition-colors group flex items-center justify-between"
                     >
                         品味报告
@@ -208,7 +217,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ persona, onBack, onCreate,
                                             {item.title}
                                         </h3>
                                         <div className="hidden md:flex opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0 shrink-0">
-                                            <Button variant="secondary" onClick={() => onCreate(item.type)} icon={Wand2}>创作</Button>
+                                            <Button variant="secondary" onClick={() => handleCreate(item.type)} icon={Wand2}>创作</Button>
                                         </div>
                                     </div>
 

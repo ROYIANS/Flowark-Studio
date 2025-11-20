@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Sparkles, Award } from 'lucide-react';
 
 // --- 类型定义 ---
@@ -7,10 +8,6 @@ interface TasteDimension {
     value: number;
     maxValue: number;
     color: string;
-}
-
-interface TasteMapProps {
-    onBack: () => void;
 }
 
 interface RadarChartProps {
@@ -156,7 +153,10 @@ const RadarChartSVG: React.FC<RadarChartProps> = ({ dimensions }) => {
 };
 
 // --- 主 TasteMap 组件 ---
-export const TasteMap: React.FC<TasteMapProps> = ({ onBack }) => {
+export const TasteMap: React.FC = () => {
+    const navigate = useNavigate();
+    const { personaId } = useParams<{ personaId: string }>();
+    const handleBack = () => navigate(`/personas/${personaId}/dashboard`);
     // 保持用户原有数据结构，在组件内部定义
     const dimensions: TasteDimension[] = [
         { name: '情绪共鸣', value: 45, maxValue: 100, color: '#E86435' },
@@ -178,7 +178,7 @@ export const TasteMap: React.FC<TasteMapProps> = ({ onBack }) => {
                 {/* 头部 */}
                 <div className="flex items-center justify-between mb-12">
                     <button
-                        onClick={onBack}
+                        onClick={handleBack}
                         className="flex items-center gap-2 text-[#8E8780] hover:text-[#2D2A26] transition-colors"
                     >
                         <ArrowLeft size={20} />

@@ -1,10 +1,7 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Wand2, ArrowRight, LayoutGrid, TrendingUp, PenTool, Check, Sparkles, LucideIcon } from 'lucide-react';
 import { Button } from './ui/Button';
-
-interface LandingPageProps {
-    onStart: () => void;
-}
 
 interface FeatureCardProps {
     icon: LucideIcon;
@@ -21,7 +18,10 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon: Icon, title, descriptio
     </div>
 );
 
-export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
+export const LandingPage: React.FC = () => {
+    const navigate = useNavigate();
+    const handleStart = () => navigate('/personas');
+
     return (
         <div className="bg-[#FDFCF8] min-h-screen flex flex-col items-center">
 
@@ -30,7 +30,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                 <div className="text-xl font-serif text-[#E86435] flex items-center gap-2">
                     <Wand2 size={24} strokeWidth={2.5}/> 浮光手记
                 </div>
-                <Button variant="secondary" onClick={onStart} className="px-5 py-2 text-base">
+                <Button variant="secondary" onClick={handleStart} className="px-5 py-2 text-base">
                     免费体验
                 </Button>
             </header>
@@ -43,14 +43,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                 <p className="text-xl text-[#8E8780] mb-12 max-w-2xl mx-auto leading-relaxed font-light">
                     「浮光手记」是一款为内容创作者量身定制的工具。我们去掉了多余的边框和干扰，为您还原纸笔时代的纯粹创作。
                 </p>
-                <Button
-                    variant="primary"
-                    onClick={onStart}
-                    icon={ArrowRight}
-                    className="text-lg px-8 py-4"
-                >
-                    立即开始 (无需注册)
-                </Button>
+                <div className="flex justify-center">
+                    <Button
+                        variant="primary"
+                        onClick={handleStart}
+                        icon={ArrowRight}
+                        className="text-lg px-8 py-4"
+                    >
+                        立即开始 (无需注册)
+                    </Button>
+                </div>
                 <p className="mt-4 text-xs text-[#8E8780]">已获得 4.8k 创作者推荐，无需下载</p>
             </section>
 
@@ -122,14 +124,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                 <p className="text-xl text-[#8E8780] mb-12 font-light">
                     加入数千名创作者的行列，让您的内容创作真正高效且充满乐趣。
                 </p>
-                <Button
-                    variant="primary"
-                    onClick={onStart}
-                    icon={Sparkles}
-                    className="text-lg px-10 py-5 bg-[#E86435] text-white hover:bg-[#F2E8E3] hover:text-[#E86435]"
-                >
-                    即刻开启「浮光手记」
-                </Button>
+                <div className="flex justify-center">
+                    <Button
+                        variant="primary"
+                        onClick={handleStart}
+                        icon={Sparkles}
+                        className="text-lg px-10 py-5 bg-[#E86435] text-white hover:bg-[#F2E8E3] hover:text-[#E86435]"
+                    >
+                        即刻开启「浮光手记」
+                    </Button>
+                </div>
             </section>
 
             {/* 5. 极简页脚 (Footer) */}

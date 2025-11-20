@@ -1,30 +1,36 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Persona } from './PersonaArchives';
+import { useApp } from '../contexts/AppContext';
 
-interface PersonaCreatorProps {
-    onBack: () => void;
-    onComplete: (persona: Persona) => void;
-}
-
-export const PersonaCreator: React.FC<PersonaCreatorProps> = ({ onBack, onComplete }) => {
+export const PersonaCreator: React.FC = () => {
+    const navigate = useNavigate();
+    const { addPersona, setSelectedPersona } = useApp();
     const [step, setStep] = useState(1);
     const [name, setName] = useState('');
     const [niche, setNiche] = useState('');
     const [isGenerating, setIsGenerating] = useState(false);
 
+    const handleBack = () => {
+        navigate('/personas');
+    };
+
     const handleGenerate = () => {
         setIsGenerating(true);
         setTimeout(() => {
-            onComplete({ id: Date.now(), name, niche, stats: "刚刚创建" });
+            const newPersona: Persona = { id: Date.now(), name, niche, stats: "刚刚创建" };
+            addPersona(newPersona);
+            setSelectedPersona(newPersona);
+            navigate(`/personas/${newPersona.id}/dashboard`);
         }, 2000);
     };
 
     return (
         <div className="min-h-screen bg-[#FDFCF8] flex flex-col pt-32 px-6 items-center">
             <div className="max-w-xl w-full">
-                <button onClick={onBack} className="mb-12 text-[#8E8780] hover:text-[#2D2A26] flex items-center gap-2">
+                <button onClick={handleBack} className="mb-12 text-[#8E8780] hover:text-[#2D2A26] flex items-center gap-2">
                     <ArrowLeft size={18} /> 取消
                 </button>
 

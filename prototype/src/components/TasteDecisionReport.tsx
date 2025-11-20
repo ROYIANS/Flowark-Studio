@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, TrendingUp, Heart, MessageCircle, Bookmark, Sparkles, ChevronRight } from 'lucide-react';
 import { Button } from './ui/Button';
 
-interface TasteDecisionReportProps {
-    onBack: () => void;
-}
-
-export const TasteDecisionReport: React.FC<TasteDecisionReportProps> = ({ onBack }) => {
+export const TasteDecisionReport: React.FC = () => {
+    const navigate = useNavigate();
+    const { personaId } = useParams<{ personaId: string }>();
+    const handleBack = () => navigate(`/personas/${personaId}/dashboard`);
     const [activeTab, setActiveTab] = useState<'data' | 'decision' | 'growth'>('data');
 
     return (
@@ -15,7 +15,7 @@ export const TasteDecisionReport: React.FC<TasteDecisionReportProps> = ({ onBack
                 {/* 头部 */}
                 <div className="flex items-center justify-between mb-12">
                     <button
-                        onClick={onBack}
+                        onClick={handleBack}
                         className="flex items-center gap-2 text-[#8E8780] hover:text-[#2D2A26] transition-colors"
                     >
                         <ArrowLeft size={20} />
