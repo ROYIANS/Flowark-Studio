@@ -1,4 +1,4 @@
-小光点 (Little Light Spot) UI 设计语言规范 v1.0
+UI 设计语言规范 v1.0
 
 1. 设计哲学 (Design Philosophy)
 
