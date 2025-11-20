@@ -46,20 +46,20 @@ export const PersonaCreator: React.FC<PersonaCreatorProps> = ({ onBack, onComple
                             <input
                                 autoFocus
                                 type="text"
-                                className="w-full bg-transparent border-b-2 border-[#EBE5E0] py-4 text-2xl md:text-3xl text-[#2D2A26] focus:outline-none focus:border-[#E86435] placeholder-[#EBE5E0] transition-colors"
+                                className="w-full bg-transparent border-b border-[#EBE5E0] py-4 text-2xl md:text-3xl text-[#2D2A26] focus:outline-none focus:border-[#2D2A26] placeholder-[#EBE5E0] transition-colors font-serif"
                                 placeholder="输入人设名称..."
                                 value={name}
                                 onChange={e => setName(e.target.value)}
                                 onKeyDown={e => e.key === 'Enter' && name && setStep(2)}
                             />
                         ) : (
-                            <div className="flex flex-wrap gap-3">
+                            <div className="flex flex-wrap gap-4">
                                 {["极简生活", "职场干货", "美妆护肤", "美食探店"].map(item => (
                                     <button
                                         key={item}
                                         onClick={() => setNiche(item)}
-                                        className={`px-6 py-3 rounded-full border transition-all text-lg
-                      ${niche === item ? 'border-[#E86435] text-[#E86435] bg-[#F2E8E3]' : 'border-[#EBE5E0] text-[#8E8780] hover:border-[#8E8780]'}`}
+                                        className={`px-8 py-3 rounded-full transition-all text-lg font-medium
+                      ${niche === item ? 'bg-[#2D2A26] text-white' : 'bg-[#FDFCF8] border border-[#EBE5E0] text-[#8E8780] hover:border-[#E86435] hover:text-[#E86435]'}`}
                                     >
                                         {item}
                                     </button>

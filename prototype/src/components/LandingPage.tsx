@@ -14,10 +14,10 @@ interface FeatureCardProps {
 }
 
 const FeatureCard: React.FC<FeatureCardProps> = ({ icon: Icon, title, description, color = '#E86435' }) => (
-    <div className="p-8 border border-[#EBE5E0] bg-white shadow-sm hover:shadow-xl transition-shadow duration-500 rounded-none flex flex-col items-start text-left">
-        <Icon size={32} className="mb-4" style={{ color: color }} strokeWidth={2.5} />
-        <h3 className="text-xl font-medium text-[#2D2A26] mb-2">{title}</h3>
-        <p className="text-[#8E8780] text-sm leading-relaxed">{description}</p>
+    <div className="py-6 flex flex-col items-start text-left group border-t border-[#EBE5E0] pt-8">
+        <Icon size={32} className="mb-6" style={{ color: color }} strokeWidth={1.5} />
+        <h3 className="text-2xl font-serif text-[#2D2A26] mb-4 group-hover:text-[#E86435] transition-colors">{title}</h3>
+        <p className="text-[#8E8780] text-base leading-relaxed">{description}</p>
     </div>
 );
 
@@ -38,16 +38,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
             {/* 1. 英雄区域 (Hero Section) */}
             <section className="text-center py-24 md:py-32 w-full max-w-4xl px-6">
                 <h1 className="text-6xl md:text-8xl font-serif font-bold text-[#2D2A26] mb-8 leading-tight">
-                    抛弃工具，只关注创作
+                    抛弃工具，<br/>只关注创作
                 </h1>
-                <p className="text-xl text-[#8E8780] mb-12 max-w-2xl mx-auto leading-relaxed">
+                <p className="text-xl text-[#8E8780] mb-12 max-w-2xl mx-auto leading-relaxed font-light">
                     「浮光手记」是一款为内容创作者量身定制的工具。我们去掉了多余的边框和干扰，为您还原纸笔时代的纯粹创作。
                 </p>
                 <Button
                     variant="primary"
                     onClick={onStart}
                     icon={ArrowRight}
-                    className="text-lg px-8 py-4 shadow-xl hover:shadow-2xl transition-shadow duration-300"
+                    className="text-lg px-8 py-4"
                 >
                     立即开始 (无需注册)
                 </Button>
@@ -55,9 +55,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
             </section>
 
             {/* 2. 核心价值展示 (Core Value Section) */}
-            <section className="w-full max-w-7xl px-6 md:px-8 py-20 bg-[#F2E8E3]/50 border-t border-b border-[#EBE5E0]">
-                <h2 className="text-4xl font-serif text-[#2D2A26] mb-16 text-center">告别低效，迎接高质内容</h2>
-                <div className="grid md:grid-cols-3 gap-8">
+            <section className="w-full max-w-7xl px-6 md:px-8 py-24">
+                <h2 className="text-4xl font-serif text-[#2D2A26] mb-20 text-center">告别低效，迎接高质内容</h2>
+                <div className="grid md:grid-cols-3 gap-12">
                     <FeatureCard
                         icon={LayoutGrid}
                         title="人设档案：精准定位"
@@ -103,30 +103,30 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                     </div>
 
                     {/* 模拟编辑器截图/UI */}
-                    <div className="bg-white p-6 shadow-2xl border border-[#EBE5E0] h-96 overflow-hidden relative">
-                        <div className="text-4xl font-serif font-bold text-[#2D2A26] mb-4">今天的我，只想写字</div>
-                        <p className="text-[#8E8780] leading-relaxed">
+                    <div className="bg-[#FDFCF8] p-8 md:p-12 border-l border-[#EBE5E0] h-96 overflow-hidden relative">
+                        <div className="text-4xl font-serif font-bold text-[#2D2A26] mb-6">今天的我，只想写字</div>
+                        <p className="text-[#2D2A26] text-lg leading-relaxed font-light">
                             这里是模拟的沉浸式编辑界面。没有侧边栏，没有工具箱，只有您的文字和灵感在流淌。
+                            <br/><br/>
                             我们相信，最强大的工具，是让你忘记工具本身。每一次输入都像在温暖的纸张上留下墨迹，让创作成为一种享受。
-                            （更多内容正在此无边框界面中滚动...）
                         </p>
                         {/* 模拟滚动条效果 */}
-                        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-white to-transparent"></div>
+                        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#FDFCF8] to-transparent"></div>
                     </div>
                 </div>
             </section>
 
             {/* 4. 底部 CTA (Final Call to Action) */}
-            <section className="w-full bg-[#2D2A26] text-white py-20 text-center">
-                <h2 className="text-5xl font-serif font-bold mb-6">下一篇爆款，从这里开始</h2>
-                <p className="text-lg text-[#8E8780] mb-10">
+            <section className="w-full bg-[#2D2A26] text-white py-32 text-center">
+                <h2 className="text-5xl font-serif font-bold mb-8">下一篇爆款，从这里开始</h2>
+                <p className="text-xl text-[#8E8780] mb-12 font-light">
                     加入数千名创作者的行列，让您的内容创作真正高效且充满乐趣。
                 </p>
                 <Button
-                    variant="secondary"
+                    variant="primary"
                     onClick={onStart}
                     icon={Sparkles}
-                    className="text-lg px-8 py-4 bg-[#E86435] text-white hover:bg-[#F2E8E3] hover:text-[#2D2A26] shadow-xl"
+                    className="text-lg px-10 py-5 bg-[#E86435] text-white hover:bg-[#F2E8E3] hover:text-[#E86435]"
                 >
                     即刻开启「浮光手记」
                 </Button>

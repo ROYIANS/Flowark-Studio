@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { TrendingUp, Eye, MessageCircle, Sparkles, RefreshCcw, Zap, Wand2, ArrowRight, Plus, Crown, Heart, Lightbulb } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Avatar } from './ui/Avatar';
+import { HoverRow } from './ui/HoverRow';
 import { Persona } from './PersonaArchives';
 import { TasteImprintNotification, TasteImprintBadge } from './TasteImprintNotification';
 
@@ -45,7 +46,7 @@ const DataAnalysisView = () => (
         <h3 className="text-xl font-medium text-[#2D2A26] mb-6">表现最佳</h3>
         <div className="space-y-0">
             {[1, 2, 3].map((i) => (
-                <div key={i} className="py-4 flex items-center justify-between border-b border-[#EBE5E0] last:border-0 group hover:bg-[#F2E8E3]/30 cursor-pointer transition-colors">
+                <HoverRow key={i} className="py-4 flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <span className="text-[#E86435] font-serif font-bold text-lg">0{i}</span>
                         <div>
@@ -54,16 +55,16 @@ const DataAnalysisView = () => (
                         </div>
                     </div>
                     <div className="text-sm font-medium text-[#2D2A26]">4.2k 互动</div>
-                </div>
+                </HoverRow>
             ))}
         </div>
 
-        {/* 简单的建议 */}
-        <div className="mt-12 bg-[#F2E8E3] p-6 rounded-none flex items-start gap-4">
+        {/* 简单的建议 - 去框化 */}
+        <div className="mt-12 pt-8 border-t border-[#EBE5E0] flex items-start gap-4">
             <Sparkles className="text-[#E86435] shrink-0 mt-1" size={20} />
             <div>
-                <h4 className="font-bold text-[#E86435] mb-1">AI 诊断建议</h4>
-                <p className="text-[#2D2A26] text-sm leading-relaxed">
+                <h4 className="font-bold text-[#E86435] mb-2">AI 诊断建议</h4>
+                <p className="text-[#2D2A26] text-base leading-relaxed">
                     您的粉丝对“职场干货”类内容的互动率比“日常分享”高出 40%。建议下周增加 2 篇关于办公效率工具的图文内容。
                 </p>
             </div>
@@ -185,9 +186,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ persona, onBack, onCreate,
                             <Button variant="text" onClick={() => {}} icon={RefreshCcw}>换一批</Button>
                         </div>
 
-                        <div className="space-y-8 animate-in slide-in-from-bottom-4 duration-500">
+                        <div className="space-y-0 animate-in slide-in-from-bottom-4 duration-500">
                             {INSPIRATIONS.map((item) => (
-                                <div key={item.id} className="group relative pb-8 border-b border-[#EBE5E0] last:border-0">
+                                <HoverRow key={item.id} className="py-8">
                                     <div className="flex items-baseline gap-3 mb-2">
                                         <span className="text-xs font-bold tracking-wider uppercase text-[#E86435]">{item.tag}</span>
                                         <span className="text-xs text-[#8E8780]">•</span>
@@ -198,7 +199,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ persona, onBack, onCreate,
                                         <h3 className="text-2xl font-serif text-[#2D2A26] leading-relaxed group-hover:text-[#E86435] transition-colors cursor-pointer">
                                             {item.title}
                                         </h3>
-                                        <div className="hidden md:flex opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0 shrink-0">
+                                        <div className="hidden md:flex opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0 shrink-0">
                                             <Button variant="secondary" onClick={() => onCreate(item.type)} icon={Wand2}>创作</Button>
                                         </div>
                                     </div>
@@ -207,24 +208,24 @@ export const Dashboard: React.FC<DashboardProps> = ({ persona, onBack, onCreate,
                                         <span className="text-sm text-[#8E8780] flex items-center gap-2">
                                             <Zap size={14} className="text-[#E86435]" /> {item.interaction}
                                         </span>
-                                        <div className="flex items-center gap-2">
+                                        <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                             <button
-                                                onClick={() => handleLike(item.id)}
-                                                className={`flex items-center gap-1 px-3 py-1 border transition-all text-xs
+                                                onClick={(e) => { e.stopPropagation(); handleLike(item.id); }}
+                                                className={`flex items-center gap-1 px-3 py-1 rounded-full transition-all text-xs
                                                     ${likedInspirations.includes(item.id)
-                                                        ? 'border-[#E86435] bg-[#F2E8E3] text-[#E86435]'
-                                                        : 'border-[#EBE5E0] text-[#8E8780] hover:border-[#E86435] hover:text-[#E86435]'
+                                                        ? 'bg-[#F2E8E3] text-[#E86435]'
+                                                        : 'text-[#8E8780] hover:bg-[#F2E8E3] hover:text-[#E86435]'
                                                     }`}
                                             >
                                                 <Heart size={14} fill={likedInspirations.includes(item.id) ? '#E86435' : 'none'} />
                                                 <span className="hidden sm:inline">这个打动我</span>
                                             </button>
                                             <button
-                                                onClick={() => handleInterested(item.id)}
-                                                className={`flex items-center gap-1 px-3 py-1 border transition-all text-xs
+                                                onClick={(e) => { e.stopPropagation(); handleInterested(item.id); }}
+                                                className={`flex items-center gap-1 px-3 py-1 rounded-full transition-all text-xs
                                                     ${interestedInspirations.includes(item.id)
-                                                        ? 'border-[#E86435] bg-[#F2E8E3] text-[#E86435]'
-                                                        : 'border-[#EBE5E0] text-[#8E8780] hover:border-[#E86435] hover:text-[#E86435]'
+                                                        ? 'bg-[#F2E8E3] text-[#E86435]'
+                                                        : 'text-[#8E8780] hover:bg-[#F2E8E3] hover:text-[#E86435]'
                                                     }`}
                                             >
                                                 <Lightbulb size={14} fill={interestedInspirations.includes(item.id) ? '#E86435' : 'none'} />
@@ -232,7 +233,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ persona, onBack, onCreate,
                                             </button>
                                         </div>
                                     </div>
-                                </div>
+                                </HoverRow>
                             ))}
                         </div>
                     </>

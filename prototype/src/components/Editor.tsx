@@ -173,53 +173,51 @@ export const Editor: React.FC<EditorProps> = ({ type, onBack }) => {
                 <main className="flex-1 p-8 md:p-16 max-w-4xl mx-auto overflow-y-auto w-full">
                     {type === 'text' ? (
                         <div className="space-y-8">
-                            {/* 意图回显（如果有） */}
+                            {/* 意图回显（如果有） - 极简风格 */}
                             {intent && (
-                                <div className="bg-[#F2E8E3] p-4 border-l-4 border-[#E86435] mb-8 animate-in slide-in-from-top-2 fade-in">
-                                    <div className="text-xs font-bold tracking-wider uppercase text-[#E86435] mb-1">
-                                        你的创作意图
-                                    </div>
-                                    <p className="text-sm text-[#2D2A26]">
-                                        类型: {intent.type === 'experience' ? '真实经历' : intent.type === 'observation' ? '观察现象' : '方法论'}
-                                        {intent.approach && ` · 尝试: ${intent.approach === 'story' ? '故事开头' : intent.approach === 'data' ? '数据开头' : '提问开头'}`}
+                                <div className="mb-12 animate-in slide-in-from-top-2 fade-in flex items-baseline gap-4 text-[#8E8780]">
+                                    <span className="text-xs font-bold tracking-wider uppercase text-[#E86435]">Intent</span>
+                                    <p className="text-sm font-light italic">
+                                        "{intent.type === 'experience' ? '我想写写我的真实经历' : intent.type === 'observation' ? '我想聊聊观察到的现象' : '我想分享一套方法论'}，
+                                        {intent.approach && `并尝试用${intent.approach === 'story' ? '故事' : intent.approach === 'data' ? '数据' : '提问'}来开头`}"
                                     </p>
                                 </div>
                             )}
 
                             {/* 标题区 */}
-                            <div className="group relative">
+                            <div className="group relative mb-8">
                                 <input
                                     type="text"
                                     defaultValue="这才是成年人顶级的自律：断舍离"
-                                    className="w-full text-4xl md:text-5xl font-serif font-bold text-[#2D2A26] bg-transparent outline-none placeholder-[#EBE5E0]"
+                                    className="w-full text-4xl md:text-5xl font-serif font-bold text-[#2D2A26] bg-transparent outline-none placeholder-[#EBE5E0] border-b border-transparent focus:border-[#EBE5E0] transition-colors pb-2"
                                 />
-                                <div className="absolute right-0 top-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <Button variant="secondary" icon={RefreshCcw} className="text-xs py-1 px-3">换标题</Button>
+                                <div className="absolute -right-4 top-2 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-full">
+                                    <Button variant="ghost" icon={RefreshCcw} className="text-xs">换标题</Button>
                                 </div>
                             </div>
 
                             {/* 正文区 */}
-                            <div className="relative group min-h-[50vh]">
+                            <div className="relative group min-h-[60vh]">
                                 <textarea
                                     value={content}
                                     onChange={(e) => setContent(e.target.value)}
-                                    className="w-full h-full min-h-[400px] resize-none bg-transparent text-lg leading-relaxed text-[#2D2A26] outline-none font-light"
+                                    className="w-full h-full min-h-[500px] resize-none bg-transparent text-lg leading-loose text-[#2D2A26] outline-none font-light selection:bg-[#F2E8E3] selection:text-[#E86435]"
                                     placeholder="开始写作..."
                                 />
-                                {/* 悬浮工具按钮 */}
-                                <div className="absolute -right-12 top-10 flex flex-col gap-2">
+                                {/* 悬浮工具按钮 - 仅在 focus 或 hover 时显示 */}
+                                <div className="absolute -right-16 top-0 flex flex-col gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                     <button
                                         onClick={() => setShowAIHelper(true)}
-                                        className="p-2 rounded-full bg-[#F2E8E3] text-[#E86435] hover:bg-[#E86435] hover:text-white transition-colors"
+                                        className="w-10 h-10 rounded-full flex items-center justify-center bg-white border border-[#EBE5E0] text-[#E86435] hover:border-[#E86435] hover:shadow-md transition-all"
                                         title="AI帮助"
                                     >
-                                        <Lightbulb size={16}/>
+                                        <Lightbulb size={18} strokeWidth={1.5}/>
                                     </button>
-                                    <button className="p-2 rounded-full bg-[#F2E8E3] text-[#E86435] hover:bg-[#E86435] hover:text-white transition-colors" title="润色">
-                                        <Wand2 size={16}/>
+                                    <button className="w-10 h-10 rounded-full flex items-center justify-center bg-white border border-[#EBE5E0] text-[#8E8780] hover:text-[#E86435] hover:border-[#E86435] hover:shadow-md transition-all" title="润色">
+                                        <Wand2 size={18} strokeWidth={1.5}/>
                                     </button>
-                                    <button className="p-2 rounded-full bg-[#F2E8E3] text-[#E86435] hover:bg-[#E86435] hover:text-white transition-colors" title="续写">
-                                        <PenTool size={16}/>
+                                    <button className="w-10 h-10 rounded-full flex items-center justify-center bg-white border border-[#EBE5E0] text-[#8E8780] hover:text-[#E86435] hover:border-[#E86435] hover:shadow-md transition-all" title="续写">
+                                        <PenTool size={18} strokeWidth={1.5}/>
                                     </button>
                                 </div>
 
@@ -245,10 +243,10 @@ export const Editor: React.FC<EditorProps> = ({ type, onBack }) => {
                                 )}
                             </div>
 
-                            {/* 标签 */}
-                            <div className="flex gap-2 pt-8 border-t border-[#EBE5E0]">
+                            {/* 标签 - 极简风格 */}
+                            <div className="flex gap-4 pt-12 mt-12 border-t border-[#EBE5E0]/50">
                                 {["#极简生活", "#断舍离", "#治愈系"].map(tag => (
-                                    <span key={tag} className="text-sm text-[#E86435] bg-[#F2E8E3] px-2 py-1 rounded-md">{tag}</span>
+                                    <span key={tag} className="text-sm text-[#8E8780] hover:text-[#E86435] cursor-pointer transition-colors">{tag}</span>
                                 ))}
                             </div>
                         </div>
@@ -267,24 +265,23 @@ export const Editor: React.FC<EditorProps> = ({ type, onBack }) => {
                     )}
                 </main>
 
-                {/* 右侧 AI 侧边栏 */}
-                <aside className="w-80 border-l border-[#EBE5E0] p-6 hidden xl:block bg-[#FDFCF8]">
-                    <h3 className="text-sm font-bold text-[#8E8780] uppercase tracking-wider mb-6">AI 助手</h3>
-
-                    <div className="space-y-6">
+                {/* 右侧 AI 侧边栏 - 更加隐形 */}
+                <aside className="w-72 border-l border-[#EBE5E0] p-8 hidden xl:block bg-[#FDFCF8]">
+                    <div className="sticky top-24 space-y-12">
                         <div>
-                            <div className="text-sm font-medium text-[#2D2A26] mb-3">配图建议</div>
-                            <div className="grid grid-cols-2 gap-2">
-                                <div className="aspect-square bg-[#EBE5E0] rounded-lg flex items-center justify-center text-[#8E8780] text-xs">极简桌面</div>
-                                <div className="aspect-square bg-[#EBE5E0] rounded-lg flex items-center justify-center text-[#8E8780] text-xs">收纳特写</div>
+                            <h3 className="text-xs font-bold text-[#E86435] uppercase tracking-widest mb-4">Visuals</h3>
+                            <div className="grid grid-cols-2 gap-3">
+                                <div className="aspect-square bg-[#F2E8E3] flex items-center justify-center text-[#8E8780] text-xs hover:bg-[#E86435] hover:text-white transition-colors cursor-pointer">极简桌面</div>
+                                <div className="aspect-square bg-[#F2E8E3] flex items-center justify-center text-[#8E8780] text-xs hover:bg-[#E86435] hover:text-white transition-colors cursor-pointer">收纳特写</div>
                             </div>
-                            <Button variant="ghost" className="w-full mt-2 text-xs justify-start" icon={RefreshCcw}>生成图片</Button>
                         </div>
 
-                        <div className="pt-6 border-t border-[#EBE5E0]">
-                            <div className="text-sm font-medium text-[#2D2A26] mb-3">发布贴士</div>
-                            <p className="text-xs text-[#8E8780] leading-relaxed">
-                                建议在周日晚上 20:00 发布，这是你的粉丝最活跃的时间段。带上 #极简生活 话题可以增加 15% 的曝光。
+                        <div>
+                            <h3 className="text-xs font-bold text-[#E86435] uppercase tracking-widest mb-4">Tips</h3>
+                            <p className="text-sm text-[#8E8780] leading-relaxed font-light">
+                                建议在 <span className="text-[#2D2A26] font-medium">周日 20:00</span> 发布。
+                                <br/><br/>
+                                你的粉丝在这个时间段最活跃。
                             </p>
                         </div>
                     </div>
