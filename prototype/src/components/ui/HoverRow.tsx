@@ -1,0 +1,16 @@
+import React from 'react';
+
+interface HoverRowProps {
+    children: React.ReactNode;
+    onClick?: () => void;
+    className?: string;
+}
+
+export const HoverRow: React.FC<HoverRowProps> = ({ children, onClick, className = "" }) => (
+    <div
+        onClick={onClick}
+        className={`group w-full transition-colors duration-300 border-b border-[#EBE5E0] last:border-0 cursor-pointer hover:bg-[#F2E8E3]/50 ${className}`}
+    >
+        {children}
+    </div>
+);
