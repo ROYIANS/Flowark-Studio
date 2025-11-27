@@ -1,0 +1,639 @@
+# Flowark Studio 浮光手记
+
+<div align="center">
+
+**抛弃工具，只关注创作**
+
+一个以用户为主导的 AI 创作伴侣，让拥有独特品味的人，用 AI 放大他们的光芒。
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-14+-black.svg)](https://nextjs.org/)
+
+[产品愿景](#产品愿景) • [核心功能](#核心功能) • [技术架构](#技术架构) • [快速开始](#快速开始) • [开发文档](#开发文档)
+
+</div>
+
+---
+
+## 📖 目录
+
+- [产品愿景](#产品愿景)
+- [核心理念](#核心理念)
+- [核心功能](#核心功能)
+- [设计哲学](#设计哲学)
+- [技术架构](#技术架构)
+- [项目结构](#项目结构)
+- [快速开始](#快速开始)
+- [开发指南](#开发指南)
+- [路线图](#路线图)
+- [贡献指南](#贡献指南)
+- [许可证](#许可证)
+
+---
+
+## 🎯 产品愿景
+
+> "AI 拉高了创作的下限，但也正在摧毁创作的上限。Flowark 的使命是让拥有独特品味的人，用 AI 放大他们的光芒。"
+
+### 时代的痛点
+
+在 AI 时代，技能（手）的门槛被极度拉平，但眼界（品味）却面临被算法平均化、平庸化的风险：
+
+- **现状**: 用户依赖 AI 一键生成，导致内容千篇一律，丧失个人特质
+- **后果**: 创作者沦为 AI 的"快捷键操作员"，自身的创作能力和审美逐渐退化
+
+### Flowark 的定位：品味放大器
+
+Flowark 不是一个简单的"效率工具"，而是一个**以用户为主导的 AI 创作伴侣**：
+
+- **传统 AI 工具**: 输入指令 → 输出结果（替代用户思考）
+- **Flowark**: 理解品味 → 激发灵感 → 辅助表达（放大用户思考）
+
+### 核心价值主张
+
+| 维度 | 价值 |
+|------|------|
+| **对于"看"** | 通过高质量的灵感策展，提升用户的审美眼界 |
+| **对于"做"** | 通过去框化的沉浸式编辑，让创作回归纯粹，AI 仅作为"手"来辅助 |
+| **对于"想"** | 通过品味决策复盘报告，帮助用户反思和迭代，形成个人风格 |
+
+---
+
+## 💡 核心理念
+
+### 人机共生创作流 (Human-AI Symbiosis Flow)
+
+Flowark 最核心的竞争力在于构建了一套人机共生创作流：
+
+1. **主导权归还**: AI 永远不抢夺用户的"方向盘"。在用户没有思路时，AI 提供选项而非答案；在用户有思路时，AI 默默退后仅做润色
+
+2. **品味建模**: 系统能够通过用户的历史行为、选择偏好和人设档案，构建出用户的"品味模型"。AI 生成的每一个字、推荐的每一张图，都经过这个模型的"过滤"和"对齐"
+
+3. **持续成长**: 用户在 Flowark 待得越久，积累的品味决策复盘报告越多，创作品味就越高，就越依赖 Flowark 提供的定制化诊断
+
+### 五条避坑铁律
+
+基于对市场竞品（尤其是失败案例）的深度分析，我们制定了五条产品设计铁律：
+
+| 铁律 | 说明 |
+|------|------|
+| **永远不要"替用户做决策"** | AI 只提供选项和参考，最终决策权在用户，且每个决策都要记录 |
+| **永远不要割裂流程** | 整个创作在一个沉浸式编辑器完成，线性流程，上下文连贯 |
+| **永远不要用"复杂表单"** | 能用"选择"的，绝不用"输入"；当必须输入时，限30字+提供模板 |
+| **永远不要做"一次性输出"** | 每次交互都要在系统中留下痕迹，喂养用户的品味模型 |
+| **永远不要"为了AI而AI"** | AI 只在关键时刻出现，其他时间要隐身 |
+
+---
+
+## ✨ 核心功能
+
+### 1. 人设档案系统 (Persona Engine)
+
+为您的每一个创作身份建立独立的档案：
+
+- **多维度定义**: 语气、关键词、禁忌词、风格偏好
+- **全局中间件**: 每次 AI 请求自动注入当前人设上下文
+- **实时校验**: AI 基于人设的实时校验（"这句话不像你会说的"）
+- **持续进化**: 在创作过程中逐步完善人设模型
+
+**示例场景**:
+```
+人设A: "生活美学博主" - 语气温暖、重视画面感、拒绝营销号话术
+人设B: "职场导师" - 语气专业、数据驱动、结构化表达
+```
+
+### 2. 浮光灵感 (Inspiration Curator)
+
+不是简单的热榜，而是经过筛选的"高品味"选题库：
+
+- **智能策展**: AI 根据品味模型推荐相关灵感
+- **结构拆解**: 展示爆款内容的骨架，而非原文
+- **品味标记**: 每次点击"❤️ 这个打动我"或"💡 这个有意思"都会获得品味印记
+- **一键创作**: 从灵感卡片直接跳转到编辑器，自动导入主题
+
+### 3. 沉浸式编辑器 (Immersive Editor)
+
+极简 UI，去工具栏化，让创作回归纯粹：
+
+#### 编辑体验
+- **纸感界面**: 基于 Tiptap 的无头编辑器，100% 自定义"纸质"界面
+- **选中润色**: 选中文字即可调用 AI 进行润色、扩写、精简
+- **指令面板**: 输入 `/` 唤起 AI 指令，不打断创作流程
+- **提示句填空**: AI 给出带填空的提示句，而非全文生成
+
+#### AI 交互方式
+```
+传统方式 ❌: AI 直接续写一大段
+Flowark 方式 ✅: "接下来你想...?"
+  ○ 补充一个具体例子
+  ○ 过渡到下一个观点
+  ○ 总结一下前面说的
+  ○ 我自己想，不用帮忙
+```
+
+#### 多模态支持
+- **图文模式**: 标题优化、自动分段、关键词植入、配图建议
+- **视频脚本模式**: 自动生成时间轴分镜、口播文案和拍摄指导
+
+### 4. 品味印记系统 (Taste Imprint System)
+
+游戏化的品味成长机制：
+
+#### 印记获取方式
+
+| 触发场景 | 交互设计 | 获得印记 | 价值回报 |
+|---------|---------|---------|---------|
+| 看灵感时 | 点击"❤️ 这个打动我"或"💡 这个有意思" | +1 | AI 记录你的偏好 |
+| 创作前 | "一句话说说你的想法"(3秒选择题) | +2 | 沉淀创作意图 |
+| 写作时 | AI 询问"这段的情绪是【焦虑】，符合预期吗？" | +1 | 校准情绪理解 |
+| 标题选择 | AI 生成3个标题，用户"投票" | +1 | 学习标题偏好 |
+| 复盘时 | 记录创作感受和反思 | +3 | 沉淀经验为规则 |
+
+#### 品味图谱 (Taste Map)
+
+类似星座图的可视化品味分布：
+
+```
+        情绪共鸣
+           ●
+          /|\
+         / | \
+    故事性 ●---● 结构化
+         \ | /
+          \|/
+           ●
+        视觉美学
+```
+
+- **动态演化**: 随印记增多，图谱逐渐丰满
+- **成就解锁**: 当某维度达到"精通"，解锁特殊标识
+- **直接影响**: 图谱直接影响 AI 推荐和生成质量
+
+### 5. 品味决策复盘报告 (Taste Decision Report)
+
+三层架构的深度复盘系统：
+
+#### 第一层：数据镜像
+- 停留时长、完读率、收藏率、评论情绪
+- 与个人平均值对比
+
+#### 第二层：品味决策回溯
+```
+你的创作决策 → 内容呈现 → 读者反馈
+
+[创作前，你说]
+"我想从'关系断舍离'的角度切入"
+
+[创作中，你选择了]
+• 开头方式: 痛点共鸣式
+• 关键转折: 第3段插入个人故事
+• 结尾方式: 留白式提问
+
+[AI 节奏分析]
+第3段情绪曲线波峰，读者停留12s
+评论集中在"太真实了"
+
+[关联结论]
+你的意图 → 你的选择 → 读者共鸣
+这个决策链条是有效的 ✓
+```
+
+#### 第三层：品味成长档案
+- 月度/季度自动生成
+- 追踪风格演化和新方向探索
+- 成就解锁和品味图谱变化
+
+---
+
+## 🎨 设计哲学
+
+### 温暖杂志极简主义 (Warm Minimalist Magazine Aesthetic)
+
+**四大核心关键词**:
+
+- **温暖 (Warmth)**: 使用暖色调，避免冷蓝和深黑
+- **呼吸 (Breathing)**: 给内容留白，让界面有呼吸感
+- **去框化 (De-boxing)**: 能用留白和线条的，绝不使用卡片容器
+- **纸感 (Paper-like)**: 模拟纸张质感，营造自然书写体验
+
+### 色彩系统
+
+| Token | 色值 | 用途 |
+|-------|------|------|
+| Canvas | `#FDFCF8` | 背景色（暖白纸张） |
+| Terracotta | `#E86435` | 主色（陶土橙） |
+| Terracotta Hover | `#F2E8E3` | 悬停/次级色 |
+| Text Primary | `#2D2A26` | 主要文本（近黑暖调） |
+| Text Secondary | `#8E8780` | 次要文本（暖灰） |
+| Divider | `#EBE5E0` | 分割线（极淡暖灰） |
+
+### 核心组件：HoverRow
+
+去卡片化列表的标志性实现：
+
+```tsx
+// 特性
+- 全宽布局，只有上下分割线
+- 无左右边框，无阴影，无圆角
+- 悬停时背景色变为 #F2E8E3/30
+- 操作按钮默认隐藏，悬停显示
+- 动效时长 500ms
+```
+
+**详细设计规范**: 参见 [`docs/design/UI.md`](docs/design/UI.md) 和 [`docs/development/UI-UX-Development-Guide.md`](docs/development/UI-UX-Development-Guide.md)
+
+---
+
+## 🏗️ 技术架构
+
+### 技术栈
+
+| 层级 | 技术选型 | 原因 |
+|------|---------|------|
+| **前端框架** | Next.js 14+ (App Router) | 优秀的 SEO，强大的 RSC 性能 |
+| **样式** | Tailwind CSS | 原子化 CSS 完美契合去框化设计 |
+| **动画** | Framer Motion | 实现"呼吸感"交互的关键库 |
+| **状态管理** | Zustand | 轻量级，适合编辑器状态管理 |
+| **核心编辑器** | Tiptap (ProseMirror) | Headless，100% 可定制，强大的插件系统 |
+| **后端服务** | Supabase | PostgreSQL + Auth + Realtime + Vector Store |
+| **AI 基础设施** | Vercel AI SDK | 完美支持 Streaming UI，流式输出 |
+| **AI 模型** | Claude 3.5 Sonnet / GPT-4o | 复杂推理 + 品味诊断 |
+|  | GPT-4o-mini / Claude Haiku | 实时润色，低延迟 |
+
+### 系统模块架构
+
+```
+┌─────────────┐
+│    用户     │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────────────┐
+│   人设引擎          │  (全局中间件)
+│ Global Context      │
+└──────┬──────────────┘
+       │
+       ├──────────────────┐
+       │                  │
+       ▼                  ▼
+┌──────────────┐   ┌──────────────┐
+│ 灵感策展器   │   │ 沉浸式编辑器 │
+│ Input        │──▶│ Core         │
+└──────────────┘   └──────┬───────┘
+                          │
+                          ▼
+                   ┌──────────────┐
+                   │ 品味决策系统 │
+                   │ Feedback     │
+                   └──────┬───────┘
+                          │
+                ┌─────────┴─────────┐
+                ▼                   ▼
+         ┌──────────────┐   ┌──────────────┐
+         │  品味图谱    │   │  成长档案    │
+         │Visualization │   │  Archive     │
+         └──────────────┘   └──────────────┘
+```
+
+### 数据库设计
+
+核心表结构：
+
+```sql
+-- 用户表
+users (id, email, nickname, preferences)
+
+-- 人设表
+personas (id, user_id, name, niche, tone_prompt, style_config, embedding)
+
+-- 灵感表
+inspirations (id, title, content_skeleton, analysis, embedding)
+
+-- 草稿表
+drafts (id, user_id, persona_id, inspiration_id, title, content, status)
+
+-- 品味报告表
+taste_reports (id, draft_id, coherence_score, pacing_analysis, suggestions)
+
+-- 品味印记表
+taste_imprints (id, user_id, type, context, points, created_at)
+```
+
+**详细架构**: 参见 [`docs/design/architecture.md`](docs/design/architecture.md)
+
+---
+
+## 📁 项目结构
+
+```
+Flowark-Studio/
+├── app/                          # Next.js App Router
+│   ├── (auth)/                   # 认证页面
+│   ├── (dashboard)/              # 仪表盘（灵感/数据）
+│   ├── editor/                   # 核心编辑器
+│   │   └── [id]/
+│   │       ├── page.tsx
+│   │       └── _components/
+│   │           ├── TiptapEditor.tsx
+│   │           ├── AISidebar.tsx
+│   │           └── BubbleMenu.tsx
+│   └── api/                      # AI 接口
+│       ├── chat/
+│       ├── completion/
+│       └── diagnose/
+├── components/
+│   ├── ui/                       # 基础 UI 组件
+│   │   ├── Button.tsx
+│   │   ├── HoverRow.tsx
+│   │   └── Avatar.tsx
+│   └── business/                 # 业务组件
+│       ├── PersonaCard.tsx
+│       └── InspirationCard.tsx
+├── lib/
+│   ├── supabase/                 # 数据库客户端
+│   ├── ai/                       # AI 工具函数 & Prompt 模板
+│   └── hooks/                    # 自定义 Hooks
+├── types/                        # TypeScript 类型定义
+├── docs/                         # 文档
+│   ├── design/                   # 设计文档
+│   │   ├── UI.md                 # UI 设计语言规范
+│   │   └── architecture.md       # 系统架构设计
+│   ├── development/              # 开发文档
+│   │   └── UI-UX-Development-Guide.md
+│   ├── product/                  # 产品文档
+│   │   └── research_report.md
+│   └── plan/                     # 规划文档
+│       └── mvp_roadmap.md
+└── prototype/                    # 原型代码
+    └── src/
+        └── components/
+```
+
+---
+
+## 🚀 快速开始
+
+### 环境要求
+
+- Node.js 18.0+
+- pnpm 8.0+
+- PostgreSQL 15+ (或使用 Supabase)
+
+### 安装
+
+```bash
+# 克隆仓库
+git clone https://github.com/yourusername/Flowark-Studio.git
+cd Flowark-Studio
+
+# 安装依赖
+pnpm install
+
+# 配置环境变量
+cp .env.example .env.local
+# 编辑 .env.local，填入必要的 API Keys
+```
+
+### 开发
+
+```bash
+# 启动开发服务器
+pnpm dev
+
+# 访问 http://localhost:3000
+```
+
+### 原型预览
+
+我们提供了一个独立的原型项目用于快速验证设计：
+
+```bash
+cd prototype
+pnpm install
+pnpm dev
+
+# 访问 http://localhost:5173
+```
+
+---
+
+## 📚 开发文档
+
+### 核心文档
+
+| 文档 | 描述 |
+|------|------|
+| [UI 设计语言规范](docs/design/UI.md) | 色彩、排版、组件的设计规范 |
+| [UI/UX 开发指南](docs/development/UI-UX-Development-Guide.md) | AI 开发时必须遵循的完整指南 |
+| [系统架构设计](docs/design/architecture.md) | 技术栈选型和模块架构 |
+| [产品调研报告](docs/product/research_report.md) | 产品定位、竞品分析、功能设计 |
+| [MVP 路线图](docs/plan/mvp_roadmap.md) | 开发计划和里程碑 |
+
+### 开发规范
+
+#### 组件开发
+
+所有组件必须遵循 UI/UX 开发指南中的规范：
+
+```tsx
+// ✅ 正确示例
+import { Button } from '@/components/ui/Button';
+import { HoverRow } from '@/components/ui/HoverRow';
+
+export const PersonaList = () => (
+  <div className="border-t border-divider">
+    {personas.map(persona => (
+      <HoverRow
+        key={persona.id}
+        onClick={() => handleSelect(persona)}
+        className="py-6 flex items-center justify-between"
+      >
+        <div className="flex items-center gap-6">
+          <Avatar name={persona.name} />
+          <div>
+            <h3 className="text-xl font-medium text-text-primary
+                           group-hover:text-terracotta transition-colors">
+              {persona.name}
+            </h3>
+            <p className="text-sm text-text-secondary">{persona.niche}</p>
+          </div>
+        </div>
+      </HoverRow>
+    ))}
+  </div>
+);
+```
+
+#### 色彩使用
+
+```tsx
+// ✅ 正确 - 使用语义化类名
+<div className="bg-canvas text-text-primary">
+<button className="bg-terracotta hover:bg-terracotta-hover">
+
+// ❌ 错误 - 使用硬编码颜色
+<div className="bg-[#FDFCF8]">
+<button className="bg-blue-500">
+```
+
+#### AI 交互
+
+```tsx
+// ✅ 正确 - 提供选项，用户主导
+const handleAIAssist = async () => {
+  const options = await getAIOptions(context);
+  showOptionsPanel(options); // 让用户选择
+};
+
+// ❌ 错误 - AI 直接生成
+const handleAIAssist = async () => {
+  const content = await generateFullContent();
+  replaceContent(content); // 替代用户思考
+};
+```
+
+### Git 工作流
+
+```bash
+# 创建功能分支
+git checkout -b feature/persona-engine
+
+# 提交代码（遵循 Conventional Commits）
+git commit -m "feat(persona): implement persona creation flow"
+
+# 推送并创建 PR
+git push origin feature/persona-engine
+```
+
+### 提交信息规范
+
+```
+feat: 新功能
+fix: 修复 bug
+docs: 文档更新
+style: 代码格式（不影响功能）
+refactor: 重构
+perf: 性能优化
+test: 测试相关
+chore: 构建/工具链相关
+```
+
+---
+
+## 🗺️ 路线图
+
+### Phase 1: 核心创作流 (2-3个月) ✅ 当前阶段
+
+- [x] 产品理念和设计规范
+- [x] UI/UX 原型
+- [ ] 人设档案（基础版）
+- [ ] 沉浸式编辑器（图文模式）
+- [ ] 意图捕捉（3秒选择题）
+- [ ] 基础 AI 辅助（提示句填空）
+
+### Phase 2: 品味系统 (1-2个月)
+
+- [ ] 品味印记机制
+- [ ] 品味图谱可视化
+- [ ] 创作决策回溯报告
+- [ ] 用户验证与迭代
+
+### Phase 3: 灵感与成长 (1-2个月)
+
+- [ ] 浮光灵感库
+- [ ] 成就系统
+- [ ] 月度品味进化报告
+- [ ] 视频脚本模式
+
+### Phase 4: 社交与分享 (待定)
+
+- [ ] 品味卡片分享
+- [ ] 创作者社区（谨慎）
+- [ ] 跨平台发布
+- [ ] 个性化模型训练
+
+### 成功指标（6个月内验证）
+
+| 指标 | 目标 | 说明 |
+|------|------|------|
+| 意图表达率 | > 60% | 创作前愿意填写"3秒意图" |
+| 品味印记密度 | > 30/月 | 用户主动与系统"对话" |
+| 复盘打开率 | > 40% | 主动查看决策回溯报告 |
+| 品味图谱完整度 | > 50% | 5个维度都有印记 |
+| 次月留存 | > 50% | 不靠通知，主动回来 |
+
+---
+
+## 🤝 贡献指南
+
+我们欢迎任何形式的贡献！
+
+### 如何贡献
+
+1. **Fork** 本仓库
+2. 创建你的特性分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交你的改动 (`git commit -m 'feat: Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 开启一个 **Pull Request**
+
+### 贡献类型
+
+- 🐛 修复 bug
+- ✨ 添加新功能
+- 📝 改进文档
+- 🎨 改进 UI/交互
+- ⚡ 性能优化
+- ♿ 提升可访问性
+- 🌐 国际化
+
+### 代码审查
+
+所有 PR 都需要至少一位维护者的审查。我们会关注：
+
+- 是否遵循 UI/UX 开发指南
+- 是否符合设计哲学（温暖、去框化、用户主导）
+- 代码质量和测试覆盖
+- 性能影响
+
+---
+
+## 📄 许可证
+
+本项目采用 [MIT License](LICENSE) 开源协议。
+
+---
+
+## 🙏 致谢
+
+### 设计灵感
+
+- **Notion** - 沉浸式编辑体验
+- **Linear** - 极简主义设计语言
+- **Are.na** - 品味策展理念
+
+### 技术栈
+
+- [Next.js](https://nextjs.org/) - React 框架
+- [Tailwind CSS](https://tailwindcss.com/) - 样式框架
+- [Tiptap](https://tiptap.dev/) - 富文本编辑器
+- [Supabase](https://supabase.com/) - 后端服务
+- [Vercel AI SDK](https://sdk.vercel.ai/) - AI 集成
+
+---
+
+## 📧 联系我们
+
+- **邮箱**: royians@vidorra.life
+- **问题反馈**: [GitHub Issues](https://github.com/yourusername/Flowark-Studio/issues)
+- **功能建议**: [GitHub Discussions](https://github.com/yourusername/Flowark-Studio/discussions)
+
+---
+
+<div align="center">
+
+**用品味放大创作，用 AI 成就更好的自己**
+
+Made with ❤️ by Flowark Team
+
+</div>
